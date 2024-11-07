@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2024_11_06_190953) do
 
   create_table "parking_spots", force: :cascade do |t|
     t.string "number"
-    t.integer "car_id", null: false
+    t.integer "car_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["car_id"], name: "index_parking_spots_on_car_id"
