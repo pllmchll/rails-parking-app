@@ -20,6 +20,9 @@
         <td><%= spot.number %></td>
         <td><%= spot.car&.license || "Empty" %></td>
         <td><%= spot.car&.color || "N/A" %></td>
+        <td>
+          <%= button_to "Delete Spot", parking_spot_path(spot), method: :delete %>
+        <td>
       </tr>
     <% end %>
   </tbody>

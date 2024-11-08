@@ -13,7 +13,7 @@ class ParkingSpotsController < ApplicationController
   def create
     @parking_spot = ParkingSpot.new(parking_spot_params)
     if @parking_spot.save
-      redirect_to parking_spots_path
+      redirect_to root_path
     end
   end
 
@@ -27,6 +27,9 @@ class ParkingSpotsController < ApplicationController
   end
 
   def destroy
+    parking_spot = ParkingSpot.find(params[:id])
+    parking_spot.destroy
+    redirect_to parking_spots_path, notice: "Parking spot removed."
   end
 
   private
