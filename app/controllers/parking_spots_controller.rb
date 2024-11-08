@@ -1,5 +1,7 @@
 class ParkingSpotsController < ApplicationController
   def index
+    @parking_spots = ParkingSpot.all
+    @parking_spot = ParkingSpot.new
   end
 
   def show
@@ -9,6 +11,10 @@ class ParkingSpotsController < ApplicationController
   end
 
   def create
+    @parking_spot = ParkingSpot.new(parking_spot_params)
+    if @parking_spot.save
+      redirect_to parking_spots_path
+    end
   end
 
   def update

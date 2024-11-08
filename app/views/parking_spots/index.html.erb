@@ -1,0 +1,26 @@
+<h1>Parking Lot</h1>
+
+<%= form_with model: @parking_spot do |form| %>
+  <%= form.label :number, "Add slot number:" %>
+  <%= form.text_field :number %>
+  <%= form.submit "Add Spot" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slot No.</th>
+      <th>License</th>
+      <th>Color</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @parking_spots.each do |spot| %>
+      <tr>
+        <td><%= spot.number %></td>
+        <td><%= spot.car&.license || "Empty" %></td>
+        <td><%= spot.car&.color || "N/A" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
