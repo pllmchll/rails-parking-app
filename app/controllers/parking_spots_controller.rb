@@ -1,7 +1,6 @@
 class ParkingSpotsController < ApplicationController
   def index
     @parking_spots = ParkingSpot.all
-    @parking_spot = ParkingSpot.new
   end
 
   def show
@@ -11,7 +10,7 @@ class ParkingSpotsController < ApplicationController
   end
 
   def create
-    @parking_spot = ParkingSpot.new(parking_spot_params)
+    @parking_spot = ParkingSpot.new(number: params[:number])
     if @parking_spot.save
       redirect_to root_path
     end
@@ -32,8 +31,12 @@ class ParkingSpotsController < ApplicationController
     redirect_to parking_spots_path, notice: "Parking spot removed."
   end
 
-  private
-    def parking_spot_params
-      params.require(:parking_spot).permit(:number)
+  def park
+    empty_spot = ParkingSpot.find_empty
+    car = Car.create(license: params[:license], color: params[:color])
+    if car.save
+      empty_spot.update(car: car)
+      redirect_to parking_spots_path
     end
+  end
 end

@@ -1,29 +1,47 @@
 <h1>Parking Lot</h1>
 
-<%= form_with model: @parking_spot do |form| %>
-  <%= form.label :number, "Add slot number:" %>
-  <%= form.text_field :number %>
-  <%= form.submit "Add Spot" %>
+<%= form_with url: park_parking_spots_path do |form| %>
+  <div>
+    <%= form.label :license, "License" %>
+    <%= form.text_field :license %>
+    <%= form.label :color, "Color" %>
+    <%= form.text_field :color %>
+    <%= form.submit 'Park Car' %>
+  </div>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Slot No.</th>
-      <th>License</th>
-      <th>Color</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @parking_spots.each do |spot| %>
+<hr />
+
+<div>
+  <table>
+    <thead>
       <tr>
-        <td><%= spot.number %></td>
-        <td><%= spot.car&.license || "Empty" %></td>
-        <td><%= spot.car&.color || "N/A" %></td>
-        <td>
-          <%= button_to "Delete Spot", parking_spot_path(spot), method: :delete %>
-        <td>
+        <th>Slot No.</th>
+        <th>License</th>
+        <th>Color</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @parking_spots.each do |spot| %>
+        <tr>
+          <td><%= spot.number %></td>
+          <td><%= spot.car&.license || "Empty" %></td>
+          <td><%= spot.car&.color || "N/A" %></td>
+          <td>
+            <%= button_to "Delete spot", parking_spot_path(spot), method: :delete %>
+          <td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<hr />
+
+<%= form_with model: @parking_spot do |form| %>
+  <div>
+    <%= form.label :number, "Add slot number:" %>
+    <%= form.text_field :number %>
+    <%= form.submit "Add Spot" %>
+  </div>
+<% end %>
