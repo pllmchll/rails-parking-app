@@ -1,5 +1,7 @@
 <h1>Parking Lot</h1>
 
+<hr />
+
 <%= form_with url: park_parking_spots_path do |form| %>
   <div>
     <%= form.label :license, "License" %>
@@ -28,6 +30,7 @@
           <td><%= spot.car&.license || "Empty" %></td>
           <td><%= spot.car&.color || "N/A" %></td>
           <td>
+            <%= button_to "Leave car", leave_parking_spot_path(spot), method: :delete %>
             <%= button_to "Delete spot", parking_spot_path(spot), method: :delete %>
           <td>
         </tr>
