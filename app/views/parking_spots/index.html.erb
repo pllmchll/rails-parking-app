@@ -2,6 +2,34 @@
 
 <hr />
 
+<h3>Search</h3>
+
+<%= form_with url: find_license_parking_spots_path, method: :get do |form| %>
+  <div>
+    <%= form.label :license, "License" %>
+    <%= form.text_field :license %>
+    <%= form.submit 'Find Car' %>
+  </div>
+<% end %>
+
+<br />
+
+<%= form_with url: find_color_parking_spots_path, method: :get do |form| %>
+  <div>
+    <%= form.label :color, "Color" %>
+    <%= form.text_field :color %>
+    <%= form.submit 'Find Car' %>
+  </div>
+<% end %>
+
+<% if flash[:car_search_result] %>
+  <p><%= flash[:car_search_result] %></p>
+<% end %>
+
+<hr />
+
+<h3>Parking</h3>
+
 <%= form_with url: park_parking_spots_path do |form| %>
   <div>
     <%= form.label :license, "License" %>
@@ -13,6 +41,16 @@
 <% end %>
 
 <hr />
+
+<%= form_with model: @parking_spot do |form| %>
+  <div>
+    <%= form.label :number, "Add slot number:" %>
+    <%= form.text_field :number %>
+    <%= form.submit "Add Spot" %>
+  </div>
+<% end %>
+
+<br />
 
 <div>
   <table>
@@ -38,13 +76,3 @@
     </tbody>
   </table>
 </div>
-
-<hr />
-
-<%= form_with model: @parking_spot do |form| %>
-  <div>
-    <%= form.label :number, "Add slot number:" %>
-    <%= form.text_field :number %>
-    <%= form.submit "Add Spot" %>
-  </div>
-<% end %>

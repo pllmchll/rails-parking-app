@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :parking_spots, only: [:index, :create, :destroy] do
     collection do
       post 'park'
+      get 'find_license'
+      get 'find_color'
     end
     member do
       delete 'leave'

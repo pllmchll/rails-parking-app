@@ -28,6 +28,8 @@ class ParkingSpotsController < ApplicationController
       car = Car.find(parking_spot.car_id)
       parking_spot.destroy
       car.destroy
+    else
+      parking_spot.destroy
     end
     redirect_to root_path
   end
@@ -52,6 +54,31 @@ class ParkingSpotsController < ApplicationController
       car = Car.find(parking_spot.car_id)
       parking_spot.update(car_id: nil)
       car.destroy
+    end
+    redirect_to root_path
+  end
+
+  def find_license
+    car = Car.find_by(license: params[:license])
+    
+    if car && car.parking_spot
+      spot = car.parking_spot.number
+      flash[:car_search_result] = "#{params[:license]} license found at: #{spot}"
+    else
+      flash[:car_search_result] = "#{params[:license]} license not found"
+    end
+    redirect_to root_path
+  end
+
+  def find_color
+    
+    cars = Car.where(color: params[:color])
+    
+    if cars.length > 0
+      spots = cars.map { |car| car.parking_spot.number }
+      flash[:car_search_result] = "#{params[:color]} cars found at: #{spots}"
+    else
+      flash[:car_search_result] = "#{params[:color]} cars not found"
     end
     redirect_to root_path
   end
